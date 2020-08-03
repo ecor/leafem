@@ -8,6 +8,8 @@
 #' @param map A \code{leaflet} or \code{mapview} map.
 #' @param data A \code{sf} object to be added to the \code{map}.
 #' @param pane The name of the map pane for the features to be rendered in.
+#' @param reproject logical valuues. If it is \code{TRUE} , \code{data} will be reprojected into lat  lon coordinates.  Default is \code{FALSE}.
+#' @param reprojection_crs lat lon reporojected coordinates. Used if \code{reproject==TRUE}, default is 4326.  
 #' @param ... Further arguments passed to the respective \code{leaflet::add*}
 #' functions. See \code{\link{addCircleMarkers}}, \code{\link{addPolylines}}
 #' and \code{\link{addPolygons}}.
@@ -15,6 +17,7 @@
 #' @return
 #' A leaflet \code{map} object.
 #'
+#' @importFrom sf st_transform
 #' @examples
 #' library(leaflet)
 #'
@@ -33,6 +36,8 @@
 addFeatures <- function(map,
                         data,
                         pane = "overlayPane",
+						reproject=FALSE,
+						reprojection_crs=4326,
                         ...) {
 
   stopifnot(inherits(map, c("leaflet", "leaflet_proxy", "mapview", "mapdeck")))
@@ -60,6 +65,12 @@ addFeatures <- function(map,
 
   if (inherits(data, "Spatial")) data = sf::st_as_sf(data)
 
+  if (reprojection==TRUE) {
+	  
+	  data <- st_transform(data,crs=reporoject_crs)
+	  
+  }
+  
   if (any(grepl("Z|M", colnames(sf::st_coordinates(utils::head(data, 1)))))) {
     data = sf::st_zm(data)
   }

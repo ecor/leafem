@@ -4,7 +4,14 @@
 \alias{addFeatures}
 \title{Type agnositc version of \code{leaflet::add*} functions.}
 \usage{
-addFeatures(map, data, pane = "overlayPane", ...)
+addFeatures(
+  map,
+  data,
+  pane = "overlayPane",
+  reproject = FALSE,
+  reprojection_crs = 4326,
+  ...
+)
 }
 \arguments{
 \item{map}{A \code{leaflet} or \code{mapview} map.}
@@ -12,6 +19,10 @@ addFeatures(map, data, pane = "overlayPane", ...)
 \item{data}{A \code{sf} object to be added to the \code{map}.}
 
 \item{pane}{The name of the map pane for the features to be rendered in.}
+
+\item{reproject}{logical valuues. If it is \code{TRUE} , \code{data} will be reprojected into lat  lon coordinates.  Default is \code{FALSE}.}
+
+\item{reprojection_crs}{lat lon reporojected coordinates. Used if \code{reproject==TRUE}, default is 4326.}
 
 \item{...}{Further arguments passed to the respective \code{leaflet::add*}
 functions. See \code{\link{addCircleMarkers}}, \code{\link{addPolylines}}
