@@ -65,9 +65,9 @@ addFeatures <- function(map,
 
   if (inherits(data, "Spatial")) data = sf::st_as_sf(data)
 
-  if (reprojection==TRUE) {
+  if (reproject==TRUE) {
 	  
-	  data <- st_transform(data,crs=reporoject_crs)
+	  data <- st_transform(data,crs=reporojection_crs)
 	  
   }
   
