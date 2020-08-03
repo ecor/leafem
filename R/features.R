@@ -67,7 +67,7 @@ addFeatures <- function(map,
 
   if (reproject==TRUE) {
 	  
-	  data <- st_transform(data,crs=reporojection_crs)
+	  data <- st_transform(data,crs=reprojection_crs)
 	  
   }
   
